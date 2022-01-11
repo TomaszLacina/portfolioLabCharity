@@ -10,7 +10,7 @@
 <section class="stats">
     <div class="container container--85">
         <div class="stats--item">
-            <em>13</em>
+            <em>${sumQuantities}</em>
 
             <h3>Oddanych worków</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
@@ -18,7 +18,7 @@
         </div>
 
         <div class="stats--item">
-            <em>5</em>
+            <em>${sumDonations}</em>
             <h3>Przekazanych darów</h3>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate quas
                 quam.</p>
@@ -74,32 +74,23 @@
     <div class="help--slides active" data-id="1">
         <p>W naszej bazie znajdziesz listę zweryfikowanych Fundacji, z którymi współpracujemy.
             Możesz sprawdzić czym się zajmują.</p>
-
         <ul class="help--slides-items">
-            <li>
-                <div class="col">
-                    <div class="title">Fundacja "Dbam o Zdrowie"</div>
-                    <div class="subtitle">Cel i misja: Pomoc dzieciom z ubogich rodzin.</div>
-                </div>
-
-                <div class="col">
-                    <div class="title">Fundacja "A kogo"</div>
-                    <div class="subtitle">Cel i misja: Pomoc wybudzaniu dzieci ze śpiączki.</div>
-                </div>
-            </li>
-
-            <li>
-                <div class="col">
-                    <div class="title">Fundacja “Dla dzieci"</div>
-                    <div class="subtitle">Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji życiowej.</div>
-                </div>
-                <div class="col">
-                    <div class="title">Fundacja “Bez domu”</div>
-                    <div class="subtitle">Cel i misja: Pomoc dla osób nie posiadających miejsca zamieszkania</div>
-                </div>
-
-            </li>
-
+            <c:forEach items="${institutions}" var="institution" step="2" varStatus="theCount">
+                <li>
+                    <div class="col">
+                        <div class="title">${institutions[theCount.index].name}</div>
+                        <div class="subtitle">${institutions[theCount.index].description}</div>
+                    </div>
+                    <c:choose>
+                        <c:when test="${institutions[theCount.index+1].name != null}">
+                            <div class="col">
+                                <div class="title">${institutions[theCount.index+1].name}</div>
+                                <div class="subtitle">${institutions[theCount.index+1].description}</div>
+                            </div>
+                        </c:when>
+                    </c:choose>
+                </li>
+            </c:forEach>
         </ul>
     </div>
 </section>
