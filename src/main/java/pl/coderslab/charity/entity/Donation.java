@@ -14,14 +14,12 @@ public class Donation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @NotEmpty
+
     private int quantity;
     @ManyToMany
-    @NotEmpty
     @JoinTable(name = "donation_category")
     private List<Category> categories = new ArrayList<>();
     @ManyToOne
-    @NotEmpty
     private Institution institutions;
     @NotEmpty
     private String street;
@@ -29,31 +27,15 @@ public class Donation {
     private String city;
     @NotEmpty
     private String zipCode;
-    @NotEmpty
+
     private int phone;
-    @NotEmpty
+
     private LocalDate pickUpDate;
-    @NotEmpty
+
     private LocalTime pickUpTime;
     @NotEmpty
     private String pickUpComment;
 
-    public Donation() {
-    }
-
-    public Donation(long id, int quantity, List<Category> categories, Institution institutions, String street, String city, String zipCode, int phone, LocalDate pickUpDate, LocalTime pickUpTime, String pickUpComment) {
-        this.id = id;
-        this.quantity = quantity;
-        this.categories = categories;
-        this.institutions = institutions;
-        this.street = street;
-        this.city = city;
-        this.zipCode = zipCode;
-        this.phone = phone;
-        this.pickUpDate = pickUpDate;
-        this.pickUpTime = pickUpTime;
-        this.pickUpComment = pickUpComment;
-    }
 
     public long getId() {
         return id;

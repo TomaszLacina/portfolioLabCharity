@@ -35,16 +35,13 @@ public class DonationController {
     @GetMapping("/add")
     public String addDonation(Model model){
         model.addAttribute("donation", new Donation());
-
         return "/donation/add";
     }
+
     @PostMapping("/add")
     public String addDonationPost(@ModelAttribute("donation") @Valid Donation donation, BindingResult result){
-        if(result.hasErrors()) {
-            return "/donation/add";
-        }
         donationRepository.save(donation);
-        return "redirect:/donation/add";
+        return "redirect:/";
     }
 
 
