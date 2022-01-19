@@ -11,4 +11,7 @@ public interface UserService {
     @Transactional
     void save(User user);
 
+    @Transactional
+    void saveAdmin(User user);
+
 }

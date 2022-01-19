@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleContextResolver;
@@ -19,23 +20,9 @@ import java.util.Locale;
 
 @Configuration
 @ComponentScan(basePackages = "pl.coderslab")
+@EnableJpaRepositories(basePackages = "pl.coderslab.charity.repository")
 @EnableTransactionManagement
-public class AppConfig implements WebMvcConfigurer {
-
-    @Bean
-    public ViewResolver viewResolver() {
-        InternalResourceViewResolver viewResolver =
-                new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/views/");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
-    }
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
-        registry.addViewController("/403").setViewName("403");
-    }
+public class AppConfig {
 
     @Bean(name="localeResolver")
     public LocaleContextResolver getLocaleContextResolver() {
@@ -45,7 +32,7 @@ public class AppConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public MessageSource messageSource(){
+    public MessageSource messageSource() {
         ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
         messageSource.setBasename("classpath:validationMessages");
         messageSource.setDefaultEncoding("UTF-8");
@@ -53,10 +40,10 @@ public class AppConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public Validator validator(){
+    public Validator validator() {
         LocalValidatorFactoryBean lvfb = new LocalValidatorFactoryBean();
         lvfb.setValidationMessageSource(messageSource());
         return lvfb;
     }
-}
 
+}

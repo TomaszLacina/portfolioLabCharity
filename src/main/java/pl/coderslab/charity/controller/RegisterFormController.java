@@ -39,9 +39,6 @@ public class RegisterFormController {
         if(result.hasErrors()){
             return "/register/add";
         }
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(encodedPassword);
         /*userRepository.save(user);*/
         userService.save(user);
         return "redirect:/login";

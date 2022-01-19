@@ -6,4 +6,5 @@ import pl.coderslab.charity.entity.Institution;
 
 @Repository
 public interface InstitutionRepository extends JpaRepository<Institution, Long> {
+    Institution getById(long idToEdit);
 }

@@ -3,11 +3,23 @@ package pl.coderslab.charity.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.stereotype.Repository;
+import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, Integer>{
+import java.util.Arrays;
+import java.util.List;
+
+public interface UserRepository extends JpaRepository<User, Long>{
 
     User findByUsername(String username);
-    User findById(long id);
+
+    User getById(long idToEdit);
+
+    List<User> findByRoles(String role);
+
+    List<User> findByEmail(String query);
+
+    List<User> findAllByUsername(String query);
+
+    List<User> findAllByRolesId(long idRole);
 }

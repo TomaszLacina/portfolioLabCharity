@@ -17,7 +17,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                .antMatchers("/donation/**").hasAnyAuthority("USER")
                 .and().formLogin().loginPage("/login")
+                .defaultSuccessUrl("/admin/index")
+                .defaultSuccessUrl("/donation/add")
                 .and().logout().logoutSuccessUrl("/")
                 .permitAll()
                 .and().exceptionHandling().accessDeniedPage("/403")
