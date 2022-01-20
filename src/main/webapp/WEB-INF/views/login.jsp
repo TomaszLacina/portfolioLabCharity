@@ -14,25 +14,9 @@
             <label><input type="password" name="password" placeholder="Hasło"/> </label></div>
         <div class="form-group form-group--buttons">
             <button class="btn" type="submit">Zaloguj się</button>
-            <a href="#" class="btn btn--without-border">Załóż konto</a>
+            <a href="/register/add" class="btn btn--without-border">Załóż konto</a>
         </div>
-
  </form>
-
-   <%-- <form method="post">
-        <div class="form-group">
-            <input type="email" name="email" placeholder="Email" />
-        </div>
-        <div class="form-group">
-            <input type="password" name="password" placeholder="Hasło" />
-            <a href="#" class="btn btn--small btn--without-border reset-password">Przypomnij hasło</a>
-        </div>
-
-        <div class="form-group form-group--buttons">
-            <button class="btn" type="submit">Zaloguj się</button>
-            <a href="#" class="btn btn--without-border">Załóż konto</a>
-        </div>
-    </form>--%>
 </section>
 <%@include file="header_footer/footer.jsp"%>
 </body>

@@ -8,8 +8,7 @@
 <section class="login-page">
     <h2>Załóż konto</h2>
     <form:form modelAttribute="user">
-        <form:hidden path="id"/>
-        <h1 class="text-color-darker">Rejestracja</h1>
+        <h1 class="text-color-darker">Edytuj dane</h1>
         <div class="form-group">
             <form:input path="username" type="text" class="form-control" id="username" name="username" placeholder="Login"/>
             <form:errors path="username"/><br>

@@ -15,5 +15,9 @@ public class CurrentUser extends User{
         this.user = user;
     }
     public pl.coderslab.charity.entity.User  getUser() {return user;}
+
+    public long getId() {
+        return user.getId();
+    }
 }
 

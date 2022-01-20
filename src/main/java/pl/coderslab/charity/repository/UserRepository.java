@@ -2,6 +2,7 @@ package pl.coderslab.charity.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
@@ -22,4 +23,9 @@ public interface UserRepository extends JpaRepository<User, Long>{
     List<User> findAllByUsername(String query);
 
     List<User> findAllByRolesId(long idRole);
+
+    List<User> findAllById(long id);
+
+    @Query("SELECT u FROM User u WHERE u.verificationCode = ?1")
+    User findByVerificationCode(String code);
 }

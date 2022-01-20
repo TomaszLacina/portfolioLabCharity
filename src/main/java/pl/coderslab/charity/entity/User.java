@@ -13,18 +13,20 @@ public class User {
     @Column(nullable = false, unique = true, length = 60)
     private String username;
     private String password;
-    private int enabled;
+    private boolean enabled;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
     @Email
     private String email;
+    @Column(name = "verification_code", length = 64)
+    private String verificationCode;
 
     public User() {
     }
 
-    public User(Long id, String username, String password, int enabled, Set<Role> roles, String email) {
+    public User(Long id, String username, String password, boolean enabled, Set<Role> roles, String email) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -65,11 +67,11 @@ public class User {
         this.password = password;
     }
 
-    public int getEnabled() {
+    public boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(int enabled) {
+    public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -80,4 +82,13 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
+    }
+
 }

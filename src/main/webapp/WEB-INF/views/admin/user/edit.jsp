@@ -9,7 +9,7 @@
     </style>
 </head>
 
-<h2>Dodaj nowego admina</h2>
+<h2>Edytuj użytkownika</h2>
 <form:form modelAttribute="user">
     <form:hidden path="id"/>
     Nazwa użytkownika: <form:input path="username"/><br>

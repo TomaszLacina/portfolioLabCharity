@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.UserService;
 import pl.coderslab.charity.entity.User;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @Controller
 public class LoginController {
@@ -19,17 +21,6 @@ public class LoginController {
     @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String login() {
         return "login";
-    }
-
-    @GetMapping("/create-user")
-    @ResponseBody
-    public String createUser(@RequestParam String username) {
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword("user");
-        user.setEmail("lukaszsowa1@email.com");
-        userService.save(user);
-        return "zalozone konto";
     }
 
 }
