@@ -18,7 +18,7 @@ public interface UserRepository extends JpaRepository<User, Long>{
 
     List<User> findByRoles(String role);
 
-    List<User> findByEmail(String query);
+    /*List<User> findAllByEmail(String query);*/
 
     List<User> findAllByUsername(String query);
 
@@ -26,6 +26,10 @@ public interface UserRepository extends JpaRepository<User, Long>{
 
     List<User> findAllById(long id);
 
-    @Query("SELECT u FROM User u WHERE u.verificationCode = ?1")
     User findByVerificationCode(String code);
+
+    User findByResetPasswordToken(String token);
+
+    User findByEmail(String email);
+
 }

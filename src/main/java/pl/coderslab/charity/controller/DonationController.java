@@ -31,7 +31,6 @@ public class DonationController {
         this.institutionRepository = institutionRepository;
     }
 
-
     @GetMapping("/add")
     public String addDonation(Model model){
         model.addAttribute("donation", new Donation());
@@ -39,11 +38,10 @@ public class DonationController {
     }
 
     @PostMapping("/add")
-    public String addDonationPost(@ModelAttribute("donation") @Valid Donation donation, BindingResult result){
+    public String saveDonation(@ModelAttribute("donation") @Valid Donation donation, BindingResult result){
         donationRepository.save(donation);
-        return "redirect:/";
+        return "redirect:/dashboard/index";
     }
-
 
     @ModelAttribute("categories")
     public List<Category> categories(){

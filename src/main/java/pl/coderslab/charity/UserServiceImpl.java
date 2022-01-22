@@ -8,6 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
+import pl.coderslab.charity.entity.UserRegistrationDto;
 import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.repository.UserRepository;
 
@@ -37,16 +38,23 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUsername(username);
     }
 
+
     @Override
     public void save(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        //user.setConfirmPassword(passwordEncoder.encode(user.getConfirmPassword()));
         user.setEnabled(false);
         String randomCode = RandomString.make(64);
         user.setVerificationCode(randomCode);
+        userRepository.save(user);
+        sendVerificationEmail(user, siteURL);
+    }
+
+    @Override
+    public void saveUser(User user) {
         Role userRole = roleRepository.findByName("USER");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userRepository.save(user);
-        sendVerificationEmail(user, siteURL);
     }
 
     @Override
@@ -78,7 +86,7 @@ public class UserServiceImpl implements UserService {
         helper.setSubject(subject);
 
         content = content.replace("[[name]]", user.getUsername());
-        String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode();
+        String verifyURL = siteURL + "/register/verify?code=" + user.getVerificationCode();
 
         content = content.replace("[[URL]]", verifyURL);
 
@@ -94,11 +102,61 @@ public class UserServiceImpl implements UserService {
         if (user == null || user.isEnabled()) {
             return false;
         } else {
+            Role userRole = roleRepository.findByName("USER");
+            user.setRoles(new HashSet<>(Arrays.asList(userRole)));
             user.setVerificationCode(null);
             user.setEnabled(true);
             userRepository.save(user);
 
             return true;
         }
+    }
+
+    @Override
+    public void updateResetPasswordToken(String token, String email) {
+        User user = userRepository.findByEmail(email);
+            user.setResetPasswordToken(token);
+            userRepository.save(user);
+    }
+
+    @Override
+    public User getByResetPasswordToken(String token) {
+        return userRepository.findByResetPasswordToken(token);
+    }
+
+    @Override
+    public void updatePassword(User user, String newPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+
+        user.setResetPasswordToken(null);
+        userRepository.save(user);
+    }
+
+    @Override
+    public void sendEmail(String recipientEmail, String link)
+            throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom("contact@shopme.com", "Shopme Support");
+        helper.setTo(recipientEmail);
+
+        String subject = "Here's the link to reset your password";
+
+        String content = "<p>Hello,</p>"
+                + "<p>You have requested to reset your password.</p>"
+                + "<p>Click the link below to change your password:</p>"
+                + "<p><a href=\"" + link + "\">Change my password</a></p>"
+                + "<br>"
+                + "<p>Ignore this email if you do remember your password, "
+                + "or you have not made the request.</p>";
+
+        helper.setSubject(subject);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
     }
 }

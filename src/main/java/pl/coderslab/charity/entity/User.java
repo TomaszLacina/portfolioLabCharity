@@ -1,8 +1,17 @@
 package pl.coderslab.charity.entity;
 
+import pl.coderslab.charity.constraint.FieldMatch;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.Set;
+import javax.validation.constraints.AssertTrue;
+
+/*@FieldMatch.List({
+        @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
+        @FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match")
+})*/
+
 
 @Entity
 public class User {
@@ -22,17 +31,12 @@ public class User {
     private String email;
     @Column(name = "verification_code", length = 64)
     private String verificationCode;
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+
+    /*private String confirmPassword;*/
 
     public User() {
-    }
-
-    public User(Long id, String username, String password, boolean enabled, Set<Role> roles, String email) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.enabled = enabled;
-        this.roles = roles;
-        this.email=email;
     }
 
     public String getEmail() {
@@ -91,4 +95,19 @@ public class User {
         this.verificationCode = verificationCode;
     }
 
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
+
+  /*  public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }*/
 }

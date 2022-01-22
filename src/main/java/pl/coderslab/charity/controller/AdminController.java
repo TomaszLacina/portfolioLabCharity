@@ -52,13 +52,13 @@ public class AdminController {
     }
 
     @GetMapping("/add")
-    public String prepareAdd(Model model) {
+    public String addAdmin(Model model) {
         model.addAttribute("user", new User());
         return "admin/user/add";
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute("user") @Valid User user, BindingResult result) {
+    public String saveAdmin(@ModelAttribute("user") @Valid User user, BindingResult result) {
         if(result.hasErrors()) {
             return "admin/user/add";
         }
@@ -67,13 +67,13 @@ public class AdminController {
     }
 
     @GetMapping("/edit")
-    public String prepareEdit(@RequestParam long idToEdit, Model model) {
+    public String editAdmin(@RequestParam long idToEdit, Model model) {
         model.addAttribute("user", userRepository.findById(idToEdit));
         return "admin/user/edit";
     }
 
     @PostMapping("/edit")
-    public String merge(@ModelAttribute("user") @Valid User user, BindingResult result) {
+    public String mergeAdmin(@ModelAttribute("user") @Valid User user, BindingResult result) {
         if(result.hasErrors()) {
             return "admin/user/edit";
         }
@@ -85,14 +85,14 @@ public class AdminController {
     }
 
     @GetMapping("/remove")
-    public String prepareRemove(@RequestParam long toRemoveId, Model model) {
+    public String removeAdmin(@RequestParam long toRemoveId, Model model) {
         model.addAttribute("user", userRepository.findById(toRemoveId));
         userRepository.deleteById(toRemoveId);
         return "redirect:/admin/user/all";
     }
 
     @GetMapping("/role")
-    public String findByCatId(@RequestParam long idRole, Model model) {
+    public String findByRoleId(@RequestParam long idRole, Model model) {
         model.addAttribute("user", userRepository.findAllByRolesId(idRole));
         userRepository.findAllByRolesId(idRole);
         return "admin/user/role";

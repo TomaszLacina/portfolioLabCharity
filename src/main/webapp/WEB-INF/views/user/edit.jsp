@@ -6,28 +6,26 @@
 
 <%@include file="../header_footer/header.jsp"%>
 <section class="login-page">
-    <h2>Załóż konto</h2>
     <form:form modelAttribute="user">
+        <form:hidden path="id"/>
+        <form:hidden path="password"/>
+        <form:hidden path="enabled"/>
+        <form:hidden path="verificationCode"/>
         <h1 class="text-color-darker">Edytuj dane</h1>
         <div class="form-group">
-            <form:input path="username" type="text" class="form-control" id="username" name="username" placeholder="Login"/>
-            <form:errors path="username"/><br>
+            <form:input path="username"/>
+            <form:errors path="username" /><br/>
         </div>
         <div class="form-group">
-            <form:input type="email" path="email" class="form-control" id="email" name="email" placeholder="Email"/>
-            <form:errors path="email"/><br>
-        </div>
-        <div class="form-group">
-            <form:input type="password" path="password" class="form-control" id="password" name="password" placeholder="Hasło"/>
-            <form:errors path="password"/><br>
+            <form:input path="email"/>
+            <form:errors path="email" /><br/>
         </div>
       <%--  <div class="form-group">
             <form:input type="password" path="password2" class="form-control" id="password" name="password" placeholder="Powtórz hasło"/>
             <form:errors path="password2"/><br>
         </div--%>
         <div class="form-group form-group--buttons">
-            <button class="btn" type="submit">Załóż konto</button>
-            <a href="/login" class="btn btn--without-border">Zaloguj się</a>
+            <button class="btn" type="submit">Wyślij</button>
         </div>
     </form:form>
 </section>

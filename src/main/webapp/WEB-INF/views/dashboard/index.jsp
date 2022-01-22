@@ -6,7 +6,6 @@
 
 <!DOCTYPE html>
 <html lang="pl">
-
 <sec:authorize access="hasAnyAuthority('USER')">
 <body>
 

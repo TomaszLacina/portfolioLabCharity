@@ -11,8 +11,12 @@ import java.io.UnsupportedEncodingException;
 public interface UserService {
 
     User findByUserName(String name);
+
     @Transactional
     void save(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
+
+    @Transactional
+    void saveUser(User user);
 
     @Transactional
     void saveAdmin(User user);
@@ -22,4 +26,17 @@ public interface UserService {
 
     @Transactional
     boolean verify(String verificationCode);
+
+    @Transactional
+    void updateResetPasswordToken(String token, String email);
+
+    @Transactional
+    User getByResetPasswordToken(String token);
+
+    @Transactional
+    void updatePassword(User user, String newPassword);
+
+    @Transactional
+    void sendEmail(String recipientEmail, String link)
+            throws MessagingException, UnsupportedEncodingException;
 }

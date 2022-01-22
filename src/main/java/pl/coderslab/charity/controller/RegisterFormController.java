@@ -31,19 +31,17 @@ public class RegisterFormController {
         this.roleRepository = roleRepository;
     }
 
-
     @GetMapping("/add")
-    public String prepareAdd(Model model) {
+    public String addRegister(Model model) {
         model.addAttribute("user", new User());
         return "/register/add";
     }
 
     @PostMapping("/add")
-    public String save(@ModelAttribute("users") @Valid User user, BindingResult result, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+    public String saveRegister(@ModelAttribute("user") @Valid User user, BindingResult result, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
         if(result.hasErrors()){
             return "/register/add";
         }
-
         userService.save(user, getSiteURL(request));
         return "redirect:/login";
     }

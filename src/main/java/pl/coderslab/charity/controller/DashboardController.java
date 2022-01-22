@@ -24,7 +24,7 @@ public class DashboardController {
 
 
     @RequestMapping("/index")
-    public String homeAction(Model model){
+    public String dashboard(Model model){
         model.addAttribute("sumQuantities", donationRepository.sumQuantities());
         model.addAttribute("sumDonations", donationRepository.sumDonations());
         return "dashboard/index";

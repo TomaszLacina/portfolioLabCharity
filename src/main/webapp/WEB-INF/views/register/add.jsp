@@ -22,16 +22,18 @@
             <form:input type="password" path="password" class="form-control" id="password" name="password" placeholder="Hasło"/>
             <form:errors path="password"/><br>
         </div>
-      <%--  <div class="form-group">
-            <form:input type="password" path="password2" class="form-control" id="password" name="password" placeholder="Powtórz hasło"/>
-            <form:errors path="password2"/><br>
-        </div--%>
+     <%--   <div class="form-group">
+            <form:input type="password" path="confirmPassword" class="form-control" id="password" name="password" placeholder="Powtórz hasło"/>
+            <form:errors path="confirmPassword"/><br>
+        </div>--%>
         <div class="form-group form-group--buttons">
             <button class="btn" type="submit">Załóż konto</button>
             <a href="/login" class="btn btn--without-border">Zaloguj się</a>
         </div>
     </form:form>
 </section>
+<script type="text/javascript" src="@{/webjars/jquery/3.2.1/jquery.min.js/}"></script>
+<script type="text/javascript" src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
 <%@include file="../header_footer/footer.jsp"%>
 </body>
 </html>

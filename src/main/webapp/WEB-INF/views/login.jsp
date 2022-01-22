@@ -16,6 +16,7 @@
             <button class="btn" type="submit">Zaloguj się</button>
             <a href="/register/add" class="btn btn--without-border">Załóż konto</a>
         </div>
+        <a href="/forgot_password">Forgot your password?</a>
  </form>
 </section>
 <%@include file="header_footer/footer.jsp"%>
