@@ -1,15 +1,12 @@
 package pl.coderslab.charity.controller;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.CurrentUser;
-import pl.coderslab.charity.UserService;
+import pl.coderslab.charity.service.UserService;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.UserRepository;
 import javax.validation.Valid;

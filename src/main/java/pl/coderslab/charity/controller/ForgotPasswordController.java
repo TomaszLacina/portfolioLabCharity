@@ -1,15 +1,13 @@
 package pl.coderslab.charity.controller;
 
-import com.sun.mail.imap.Utility;
 import net.bytebuddy.utility.RandomString;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.coderslab.charity.UserService;
+import pl.coderslab.charity.service.UserService;
 import pl.coderslab.charity.entity.User;
 
 import javax.mail.MessagingException;

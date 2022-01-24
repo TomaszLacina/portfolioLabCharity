@@ -1,4 +1,4 @@
-package pl.coderslab.charity;
+package pl.coderslab.charity.service;
 
 import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +8,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
-import pl.coderslab.charity.entity.UserRegistrationDto;
 import pl.coderslab.charity.repository.RoleRepository;
 import pl.coderslab.charity.repository.UserRepository;
+import pl.coderslab.charity.service.UserService;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -159,4 +159,5 @@ public class UserServiceImpl implements UserService {
 
         mailSender.send(message);
     }
+
 }

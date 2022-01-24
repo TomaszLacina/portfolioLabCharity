@@ -2,7 +2,7 @@ package pl.coderslab.charity.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.charity.UserService;
+import pl.coderslab.charity.service.UserService;
 
 
 @Controller

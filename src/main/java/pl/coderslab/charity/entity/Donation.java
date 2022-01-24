@@ -1,5 +1,7 @@
 package pl.coderslab.charity.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -7,6 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name="donation")
@@ -30,11 +33,19 @@ public class Donation {
 
     private int phone;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate pickUpDate;
 
     private LocalTime pickUpTime;
     @NotEmpty
     private String pickUpComment;
+
+    @ManyToOne
+    private User user;
+
+    @ManyToMany
+    @JoinTable(name = "donation_status")
+    private Set<Status> statuses;
 
 
     public long getId() {
@@ -123,5 +134,21 @@ public class Donation {
 
     public void setPickUpComment(String pickUpComment) {
         this.pickUpComment = pickUpComment;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<Status> getStatuses() {
+        return statuses;
+    }
+
+    public void setStatuses(Set<Status> statuses) {
+        this.statuses = statuses;
     }
 }

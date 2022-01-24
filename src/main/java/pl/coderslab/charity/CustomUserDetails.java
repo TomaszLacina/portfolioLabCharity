@@ -22,7 +22,11 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return null;
+        return user.getUsername();
+    }
+
+    public long getId() {
+        return user.getId();
     }
 
     @Override
@@ -44,5 +48,4 @@ public class CustomUserDetails implements UserDetails {
     public boolean isEnabled() {
         return user.isEnabled();
     }
-
 }

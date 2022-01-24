@@ -31,5 +31,4 @@ public interface UserRepository extends JpaRepository<User, Long>{
     User findByResetPasswordToken(String token);
 
     User findByEmail(String email);
-
 }

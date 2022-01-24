@@ -1,20 +1,17 @@
 package pl.coderslab.charity.controller;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import pl.coderslab.charity.entity.Category;
-import pl.coderslab.charity.entity.Donation;
-import pl.coderslab.charity.entity.Institution;
-import pl.coderslab.charity.repository.CategoryRepository;
-import pl.coderslab.charity.repository.DonationRepository;
-import pl.coderslab.charity.repository.InstitutionRepository;
+import org.springframework.web.bind.annotation.*;
+import pl.coderslab.charity.CurrentUser;
+import pl.coderslab.charity.entity.*;
+import pl.coderslab.charity.repository.*;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -24,21 +21,39 @@ public class DonationController {
     private final CategoryRepository categoryRepository;
     private final DonationRepository donationRepository;
     private final InstitutionRepository institutionRepository;
+    private final UserRepository userRepository;
+    private final StatusRepository statusRepository;
 
-    public DonationController(CategoryRepository categoryRepository, DonationRepository donationRepository, InstitutionRepository institutionRepository) {
+    public DonationController(CategoryRepository categoryRepository, DonationRepository donationRepository, InstitutionRepository institutionRepository, UserRepository userRepository, StatusRepository statusRepository) {
         this.categoryRepository = categoryRepository;
         this.donationRepository = donationRepository;
         this.institutionRepository = institutionRepository;
+        this.userRepository = userRepository;
+        this.statusRepository = statusRepository;
+    }
+    @GetMapping("/all")
+    public String showAllDonation(Model model, @AuthenticationPrincipal CurrentUser customUser) {
+        List<Donation> donations = donationRepository.findAllByUser(customUser.getUser());
+        model.addAttribute("donation", donations);
+        return "/donation/all";
     }
 
     @GetMapping("/add")
-    public String addDonation(Model model){
+    public String addDonation(Model model, @AuthenticationPrincipal CurrentUser customUser){
         model.addAttribute("donation", new Donation());
         return "/donation/add";
     }
 
     @PostMapping("/add")
-    public String saveDonation(@ModelAttribute("donation") @Valid Donation donation, BindingResult result){
+    public String saveDonation(@ModelAttribute("donation") @Valid Donation donation, BindingResult result, @AuthenticationPrincipal CurrentUser customUser){
+
+        if(result.hasErrors()){
+            return "/donation/add";
+        }
+        Status status = statusRepository.findByName("Nieodebrane");
+        donation.setStatuses(new HashSet<>(Arrays.asList(status)));
+        User entityUser = customUser.getUser();
+        donation.setUser(entityUser);
         donationRepository.save(donation);
         return "redirect:/dashboard/index";
     }
@@ -53,4 +68,13 @@ public class DonationController {
         return institutionRepository.findAll();
     }
 
+    @ModelAttribute("user")
+    public List<User> user() {
+        return userRepository.findAll();
+    }
+
+    @ModelAttribute("statuses")
+    public List<Status> statuses() {
+        return statusRepository.findAll();
+    }
 }

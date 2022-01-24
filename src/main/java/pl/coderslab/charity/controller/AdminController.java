@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.charity.UserService;
+import pl.coderslab.charity.service.UserService;
 import pl.coderslab.charity.entity.Role;
 import pl.coderslab.charity.entity.User;
 import pl.coderslab.charity.repository.RoleRepository;

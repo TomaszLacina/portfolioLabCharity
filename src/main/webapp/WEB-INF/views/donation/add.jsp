@@ -100,7 +100,6 @@
                 <div class="form-section form-section--columns">
                     <div class="form-section--column">
                         <h4>Adres odbioru</h4>
-
                         <div class="form-group form-group--inline">
                             <label> Ulica <form:input path="street"/> </label>
                         </div>
@@ -121,7 +120,7 @@
                     <div class="form-section--column">
                         <h4>Termin odbioru</h4>
                         <div class="form-group form-group--inline">
-                            <label> Data <form:input type="date" path="pickUpDate" id ="pickUpDate"/> </label>
+                            <label> Data <form:input type="date" path="pickUpDate" /> </label>
                         </div>
 
                         <div class="form-group form-group--inline">

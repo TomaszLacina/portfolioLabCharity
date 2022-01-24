@@ -3,9 +3,8 @@ package pl.coderslab.charity.entity;
 import pl.coderslab.charity.constraint.FieldMatch;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
+import javax.validation.constraints.*;
 import java.util.Set;
-import javax.validation.constraints.AssertTrue;
 
 /*@FieldMatch.List({
         @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
@@ -21,6 +20,8 @@ public class User {
     private Long id;
     @Column(nullable = false, unique = true, length = 60)
     private String username;
+    @NotEmpty(message = "musisz podać hasło")
+    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$", message = "hasło musi mieć: wielkie litery, małe litery, cyfry i znaki specjalne")
     private String password;
     private boolean enabled;
     @ManyToMany(fetch = FetchType.EAGER)
