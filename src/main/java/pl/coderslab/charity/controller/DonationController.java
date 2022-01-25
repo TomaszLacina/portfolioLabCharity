@@ -15,7 +15,7 @@ import java.util.HashSet;
 import java.util.List;
 
 @Controller
-@RequestMapping("/donation")
+@RequestMapping("/user/donation")
 public class DonationController {
 
     private final CategoryRepository categoryRepository;
@@ -35,20 +35,20 @@ public class DonationController {
     public String showAllDonation(Model model, @AuthenticationPrincipal CurrentUser customUser) {
         List<Donation> donations = donationRepository.findAllByUser(customUser.getUser());
         model.addAttribute("donation", donations);
-        return "/donation/all";
+        return "/user/donation/all";
     }
 
     @GetMapping("/add")
     public String addDonation(Model model, @AuthenticationPrincipal CurrentUser customUser){
         model.addAttribute("donation", new Donation());
-        return "/donation/add";
+        return "/user/donation/add";
     }
 
     @PostMapping("/add")
     public String saveDonation(@ModelAttribute("donation") @Valid Donation donation, BindingResult result, @AuthenticationPrincipal CurrentUser customUser){
 
         if(result.hasErrors()){
-            return "/donation/add";
+            return "/user/donation/add";
         }
         Status status = statusRepository.findByName("Nieodebrane");
         donation.setStatuses(new HashSet<>(Arrays.asList(status)));

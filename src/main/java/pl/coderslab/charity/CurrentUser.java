@@ -19,5 +19,8 @@ public class CurrentUser extends User{
     public long getId() {
         return user.getId();
     }
+   /* public String getUsername() {
+        return user.getUsername();
+    }*/
 }
 

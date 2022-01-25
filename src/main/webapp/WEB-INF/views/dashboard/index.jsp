@@ -4,8 +4,7 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<!DOCTYPE html>
-<html lang="pl">
+
 <sec:authorize access="hasAnyAuthority('USER')">
 <body>
 
@@ -19,9 +18,15 @@
 <header class="header--main-page">
     <nav class="container container--70">
         <ul class="nav--actions">
-            <li><a href="" class="btn btn--small btn--without-border">Moje konto</a></li>
-            <li><a href="/user/edit" class="btn btn--small btn--without-border">Edytuj konto</a></li>
-            <li><a href="/" class="btn btn--small btn--without-border">Wyloguj</a></li>
+            <li class="logged-user">
+                    <%--<sec:authentication property="principal.username"/>--%>
+                <ul class="dropdown">
+                    <li><a href="/user/user/edit">Profil</a></li>
+                    <li><a href="/user/donation/all">Moje zbiórki</a></li>
+                    <li><a href="/user/user/edit_password">Zmień hasło</a></li>
+                    <li><a href="/">Wyloguj</a></li>
+                </ul>
+            </li>
         </ul>
 
         <ul>
@@ -88,7 +93,7 @@
         </div>
     </div>
 
-    <a href="/donation/add" class="btn btn--large">Przekaż datek</a>
+    <a href="/user/donation/add" class="btn btn--large">Przekaż datek</a>
 </section>
 
 <section class="about-us">
@@ -131,10 +136,10 @@
 </section>
 <%@include file="../header_footer/footer.jsp"%>
 </body>
-</html>
 </sec:authorize>
 <sec:authorize access="hasAnyAuthority('ADMIN')">
     <h2><a href="/admin/institution/all">Instytucje</a></h2>
+    <h2><a href="/admin/donation/all">Darowizny</a></h2>
     <h2><a href="/admin/user/role?idRole=1">Administratorzy</a></h2>
     <h2><a href="/admin/user/role?idRole=2">Użytkownicy</a></h2>
     <h2><a href="/admin/user/all">Wszyscy użytkownicy</a></h2>

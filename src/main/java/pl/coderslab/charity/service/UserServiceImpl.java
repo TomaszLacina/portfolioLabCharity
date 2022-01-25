@@ -65,6 +65,13 @@ public class UserServiceImpl implements UserService {
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userRepository.save(user);
     }
+    @Override
+    public void savePassword(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Role userRole = roleRepository.findByName("USER");
+        user.setRoles(new HashSet<>(Arrays.asList(userRole)));
+        userRepository.save(user);
+    }
 
     @Override
     public void sendVerificationEmail(User user, String siteURL) throws MessagingException, UnsupportedEncodingException {

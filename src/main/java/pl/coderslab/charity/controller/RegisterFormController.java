@@ -38,11 +38,15 @@ public class RegisterFormController {
 
     @PostMapping("/add")
     public String saveRegister(@ModelAttribute("user") @Valid User user, BindingResult result, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
-        if(result.hasErrors()){
+        System.out.println("HERE" + user.toString());
+        if (!user.getPassword().equals(user.getConfirmPassword())) {
+            System.out.println("Passwords dont match!");
             return "/register/add";
+        } else {
+            System.out.println("SUCCESS");
+            userService.save(user, getSiteURL(request));
+            return "redirect:/login";
         }
-        userService.save(user, getSiteURL(request));
-        return "redirect:/login";
     }
 
     @GetMapping("/verify")

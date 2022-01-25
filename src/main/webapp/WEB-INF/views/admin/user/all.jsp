@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<a href="/admin/index">Menu główne</a>
+<a href="/dashboard/index">Menu główne</a>
 <hr>
 <%@include file="../common/search.jsp"%>
 <hr>

@@ -22,10 +22,11 @@
             <form:input type="password" path="password" class="form-control" id="password" name="password" placeholder="Hasło"/>
             <form:errors path="password"/><br>
         </div>
-     <%--   <div class="form-group">
+        <div class="form-group">
             <form:input type="password" path="confirmPassword" class="form-control" id="password" name="password" placeholder="Powtórz hasło"/>
             <form:errors path="confirmPassword"/><br>
-        </div>--%>
+        </div>
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <div class="form-group form-group--buttons">
             <button class="btn" type="submit">Załóż konto</button>
             <a href="/login" class="btn btn--without-border">Zaloguj się</a>

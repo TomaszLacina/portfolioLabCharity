@@ -1,15 +1,8 @@
 package pl.coderslab.charity.entity;
 
-import pl.coderslab.charity.constraint.FieldMatch;
-
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Set;
-
-/*@FieldMatch.List({
-        @FieldMatch(first = "password", second = "confirmPassword", message = "The password fields must match"),
-        @FieldMatch(first = "email", second = "confirmEmail", message = "The email fields must match")
-})*/
 
 
 @Entity
@@ -34,8 +27,8 @@ public class User {
     private String verificationCode;
     @Column(name = "reset_password_token")
     private String resetPasswordToken;
-
-    /*private String confirmPassword;*/
+    @Transient
+    private String confirmPassword;
 
     public User() {
     }
@@ -104,11 +97,11 @@ public class User {
         this.resetPasswordToken = resetPasswordToken;
     }
 
-  /*  public String getConfirmPassword() {
+    public String getConfirmPassword() {
         return confirmPassword;
     }
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
-    }*/
+    }
 }

@@ -4,23 +4,25 @@
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <link href='<c:url value="../../../resources/css/style.css"/>' rel="stylesheet" type="text/css">
+    <link href='<c:url value="../../../../resources/css/style.css"/>' rel="stylesheet" type="text/css">
 </head>
 <body>
 <header class="header--form-page">
     <nav class="container container--70">
         <ul class="nav--actions">
             <li class="logged-user">
-                Witaj Agata
+                <%--<sec:authentication property="principal.username"/>--%>
                 <ul class="dropdown">
-                    <li><a href="#">Profil</a></li>
-                    <li><a href="#">Moje zbiórki</a></li>
-                    <li><a href="#">Wyloguj</a></li>
+                    <li><a href="/user/user/edit">Profil</a></li>
+                    <li><a href="/user/donation/all">Moje zbiórki</a></li>
+                    <li><a href="/user/user/edit_password">Zmień hasło</a></li>
+                    <li><a href="/">Wyloguj</a></li>
                 </ul>
             </li>
         </ul>
@@ -33,22 +35,20 @@
             <li><a href="index.html#contact" class="btn btn--without-border">Kontakt</a></li>
         </ul>
     </nav>
+
     <div class="slogan container container--90">
-        <h2>Twojej darowizny</h2>
+        <h2>
+            Twoje darowizny
+        </h2>
     </div>
 </header>
 <hr>
 <c:forEach items="${donation}" var="d">
-<strong><c:out value="${d.quantity}"/> liczba oddanych worków</strong><br>
+<strong>Liczba oddanych worków: <c:out value="${d.quantity}"/></strong><br>
 <strong><c:out value="${d.institutions.name}"/></strong><br>
 <c:forEach items="${d.statuses}" var="s" varStatus="loop">
 <strong><c:out value="${s.name}"/></strong><c:if test="${loop.index + 1 lt d.statuses.size()}">; </c:if>
 </c:forEach>
-<br>
-<a href="edit?idToEdit=${d.id}">
-    Edytuj
-</a>
-<br>
 <hr>
 </c:forEach>
 

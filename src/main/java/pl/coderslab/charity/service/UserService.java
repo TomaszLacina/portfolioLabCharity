@@ -23,6 +23,9 @@ public interface UserService {
     void saveAdmin(User user);
 
     @Transactional
+    void savePassword(User user);
+
+    @Transactional
     void sendVerificationEmail(User user, String siteURL) throws MessagingException, UnsupportedEncodingException;
 
     @Transactional
