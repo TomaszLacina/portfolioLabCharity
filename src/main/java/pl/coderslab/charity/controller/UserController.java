@@ -47,14 +47,19 @@ public class UserController {
     }
 
     @PostMapping("/edit_password")
-    public String mergePasswordUser(@ModelAttribute("user") @Valid User user, BindingResult result, @AuthenticationPrincipal CurrentUser customUser){
+    public String mergePasswordUser(@ModelAttribute("user") @Valid UserChangePasswordDTO userFromForm, BindingResult result, @AuthenticationPrincipal CurrentUser customUser){
+        //tutaj wpierw trzeba pobrac z serwisu czy uzytkownik taki istnieje
+            
+        User user = service.znajdzUsera(customUser.getId());
+        
         System.out.println("HERE" + user.toString());
-        if (!user.getPassword().equals(user.getConfirmPassword())) {
+        if (!user.getPassword().equals(user.getConfirmPassword())) { // zamiast tego ta sama metoda do walidacji
             System.out.println("Passwords dont match!");
             return "user/user/edit_password";
         } else {
             System.out.println("SUCCESS");
-            userService.savePassword(user);
+            user.setPassowrd(userFromForm);
+            userService.updatePassword(user);   
             return "redirect:/dashboard/index";
         }
     }
