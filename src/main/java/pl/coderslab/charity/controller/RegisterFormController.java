@@ -37,8 +37,23 @@ public class RegisterFormController {
     }
 
     @PostMapping("/add")
-    public String saveRegister(@ModelAttribute("user") @Valid User user, BindingResult result, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
+    public String saveRegister(@ModelAttribute("user") @Valid UserRegisterDto userReg, BindingResult result, HttpServletRequest request) throws MessagingException, UnsupportedEncodingException {
         System.out.println("HERE" + user.toString());
+        
+        if(!isPasswordValid(userReg)){ // nowa metoda na to zeby sprawdzic czy hasla są takie same, meotda true/false ma zwracac
+            model.setAttribute("error","blabla");
+            return "/register/add";
+        }
+        
+        User user = new User();
+        
+        user.setName(userReg.getName);
+        user.setPassword(userReg.getPassword());
+        ...
+            ..
+            
+            ...
+            
         if (!user.getPassword().equals(user.getConfirmPassword())) {
             System.out.println("Passwords dont match!");
             return "/register/add";
